@@ -909,7 +909,7 @@ static void ModelSetValueForProperty(__unsafe_unretained id model,
                                         if (!cls) cls = meta->_genericCls; // for xcode code coverage
                                     }
                                     NSObject *newOne = [cls new];
-                                    [newOne modelSetWithDictionary:one];
+                                    if (![newOne modelSetWithDictionary:one]) continue;
                                     if (newOne) [objectArr addObject:newOne];
                                 }
                             }
@@ -949,7 +949,7 @@ static void ModelSetValueForProperty(__unsafe_unretained id model,
                                         if (!cls) cls = meta->_genericCls; // for xcode code coverage
                                     }
                                     NSObject *newOne = [cls new];
-                                    [newOne modelSetWithDictionary:(id)oneValue];
+                                    if (![newOne modelSetWithDictionary:(id)oneValue]) newOne = nil;
                                     if (newOne) dic[oneKey] = newOne;
                                 }
                             }];
@@ -984,7 +984,7 @@ static void ModelSetValueForProperty(__unsafe_unretained id model,
                                     if (!cls) cls = meta->_genericCls; // for xcode code coverage
                                 }
                                 NSObject *newOne = [cls new];
-                                [newOne modelSetWithDictionary:one];
+                                if (![newOne modelSetWithDictionary:one]) newOne = nil;
                                 if (newOne) [set addObject:newOne];
                             }
                         }
